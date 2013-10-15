@@ -14,7 +14,7 @@ try {
 desired = {
   platform: "LINUX",
   name: "wd-sync demo",
-  browserName: "firefox"
+  browserName: "chrome"
 };
 
 var client = wdSync.remote(
@@ -30,6 +30,13 @@ sync( function() {
   console.log("server status:", browser.status());
   browser.init(desired);
   console.log("session capabilities:", browser.sessionCapabilities());
+
+  sessionid = browser.sessionCapabilities()['webdriver.remote.sessionid'];
+  if(sessionid == null){
+    console.log('\x1b[36m%s\x1b[0m', "browser.sessionCapabilities()['webdriver.remote.sessionid'] = undefined!");
+  }else{
+    console.log('\x1b[36m%s\x1b[0m', browser.sessionCapabilities()['webdriver.remote.sessionid']);
+  }
 
   browser.get("http://google.com");
   console.log(browser.title());
